@@ -1,6 +1,7 @@
-# Bahcesehir University Capstone Project 1010168 Controller
+# Bahcesehir University Capstone Project 1010168 Coordinator
 
-🎱 NodeJS Version: **16.14.0 (LTS)**
+🎱 NodeJS Version: **16.14.0 (LTS)**  
+🎱 Python Version: **3+**
 
 ```bash
     nvm install 16.14.0
