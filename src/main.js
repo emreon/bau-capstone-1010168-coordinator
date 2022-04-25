@@ -14,4 +14,5 @@ myCamera
     })
     .catch((error) => {
         // Handle your error
+        console.error(error);
     });

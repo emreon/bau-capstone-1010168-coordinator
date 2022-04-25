@@ -10,11 +10,11 @@
 
 ## Raspberry Pi Setup
 
-* Download and run the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
-* Write `RASPBERRY PI OS LITE (32-BIT)` image to the SD Card
-* Include `wpa_supplicant.conf` in the `/boot` volume of the SD Card
-* Create an empty `ssh` file in the `/boot` volume of the SD Card
-* Power up the Raspberry Pi and connect via ssh
+-   Download and run the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+-   Write `RASPBERRY PI OS LITE (32-BIT)` image to the SD Card
+-   Include `wpa_supplicant.conf` in the `/boot` volume of the SD Card
+-   Create an empty `ssh` file in the `/boot` volume of the SD Card
+-   Power up the Raspberry Pi and connect via ssh
 
 ```bash
 # Connect to the Raspberry Pi and update the OS
@@ -40,13 +40,23 @@ sudo mkdir /var/coordinator
 sudo chown -R pi:pi /var/coordinator
 
 # Install & Run Coordinator
-cd /var/coordinator
-git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git
-cd bau-capstone-1010168-coordinator
+git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
+cd /var/coordinator/bau-capstone-1010168-coordinator
 npm ci
 npm run start
 
 # Install CV Program
 # python3 --version
 # ...
+```
+
+## Raspberry Pi Deploy
+
+```bash
+ssh pi@raspberrypi.local
+rm -rf /var/coordinator/bau-capstone-1010168-coordinator
+git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
+cd /var/coordinator/bau-capstone-1010168-coordinator
+npm ci
+npm run start
 ```
