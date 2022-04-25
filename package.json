@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/emreon/bau-capstone-1010168-controller/issues"
   },
-  "homepage": "https://github.com/emreon/bau-capstone-1010168-controller#readme"
+  "homepage": "https://github.com/emreon/bau-capstone-1010168-controller#readme",
+  "dependencies": {
+    "pi-camera": "^1.7.0"
+  }
 }
