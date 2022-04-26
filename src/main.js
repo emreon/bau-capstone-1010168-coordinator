@@ -10,7 +10,8 @@ myCamera
     .snapDataUrl()
     .then((result) => {
         // Your picture was captured
-        console.log('<img src="${result}">');
+        // console.log('<img src="${result}">');
+        console.log(result);
     })
     .catch((error) => {
         // Handle your error

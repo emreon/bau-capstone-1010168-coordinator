@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/emreon/bau-capstone-1010168-controller#readme",
   "dependencies": {
-    "pi-camera": "^1.7.0"
+    "pi-camera": "^1.7.0",
+    "socket.io": "^4.5.0"
   }
 }

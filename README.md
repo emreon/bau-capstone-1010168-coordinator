@@ -17,16 +17,51 @@
 -   Power up the Raspberry Pi and connect via ssh
 
 ```bash
-# Connect to the Raspberry Pi and update the OS
+# Shutdown
+# sudo shutdown now
+
+# Reboot
+# sudo shutdown -r now
+
+# Disconnect
+# logout
+
+# Connect to the Raspberry Pi
 ssh pi@raspberrypi.local # Default Password: raspberry
+
+# Change Password
+# ...
+
+# Enable Public Key Authentication for SSH
+# ...
+
+# Configure the Raspberry Pi
+sudo raspi-config
+# Enable Camera:      Interface Options > Camera > Yes > Ok
+# Expand Filesystem:  Advanced Options > Expand Filesystem > Ok
+# Save Config:        Finish > Yes (Reboot)
+
+# --------------------------------
+# 1. Shutdown
+# 2. Attach the Camera Module
+# 3. Reconnect ...
+# ---------------------------------
+
+# Update the OS
 sudo apt update
 sudo apt upgrade -y
 
 # Install neofetch (optional)
 sudo apt install neofetch -y
 
-# Install nvm, nodejs, npm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash # Reconnect after this command
+# Install nvm (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+
+# --------------------------------
+# Reconnect ...
+# --------------------------------
+
+# Install nodejs 16 (LTS) and npm
 nvm install 16.14.0
 # node -v
 # npm -v
@@ -42,7 +77,7 @@ sudo chown -R pi:pi /var/coordinator
 # Install & Run Coordinator
 git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
 cd /var/coordinator/bau-capstone-1010168-coordinator
-npm ci
+npm ci --include=dev
 npm run start
 
 # Install CV Program
@@ -54,9 +89,10 @@ npm run start
 
 ```bash
 ssh pi@raspberrypi.local
+
 rm -rf /var/coordinator/bau-capstone-1010168-coordinator
 git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
 cd /var/coordinator/bau-capstone-1010168-coordinator
-npm ci
+npm ci --include=dev
 npm run start
 ```
