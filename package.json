@@ -20,7 +20,6 @@
         "pi-camera": "^1.7.0",
         "pi-camera-connect": "^0.3.4",
         "sharp": "^0.30.4",
-        "socket.io": "^4.5.0",
         "socket.io-client": "^4.5.0"
     }
 }
