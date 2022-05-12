@@ -1,23 +1,26 @@
 {
-  "name": "bau-capstone-1010168-controller",
-  "version": "1.0.0",
-  "description": "Bahcesehir University Capstone Project 1010168 Controller",
-  "main": "./src/main.js",
-  "scripts": {
-    "start": "node ./src/main.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/emreon/bau-capstone-1010168-controller.git"
-  },
-  "author": "Emre Onrat",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/emreon/bau-capstone-1010168-controller/issues"
-  },
-  "homepage": "https://github.com/emreon/bau-capstone-1010168-controller#readme",
-  "dependencies": {
-    "pi-camera": "^1.7.0",
-    "socket.io": "^4.5.0"
-  }
+    "name": "bau-capstone-1010168-coordinator",
+    "version": "1.0.0",
+    "description": "Bahcesehir University Capstone Project 1010168 Coordinator (Raspberry Pi)",
+    "type": "module",
+    "scripts": {
+        "start": "node ./src/main.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emreon/bau-capstone-1010168-coordinator.git"
+    },
+    "author": "Emre",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/emreon/bau-capstone-1010168-coordinator/issues"
+    },
+    "homepage": "https://github.com/emreon/bau-capstone-1010168-coordinator#readme",
+    "dependencies": {
+        "pi-camera": "^1.7.0",
+        "pi-camera-connect": "^0.3.4",
+        "sharp": "^0.30.4",
+        "socket.io": "^4.5.0",
+        "socket.io-client": "^4.5.0"
+    }
 }

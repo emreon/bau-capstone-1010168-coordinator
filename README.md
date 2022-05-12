@@ -18,7 +18,7 @@
 
 ```bash
 # Shutdown
-# sudo shutdown now
+# sudo shutdown -h now
 
 # Reboot
 # sudo shutdown -r now
