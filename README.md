@@ -1,12 +1,14 @@
 # Bahcesehir University Capstone Project 1010168 Coordinator
 
-🎱 NodeJS Version: **16.14.0 (LTS)**  
-🎱 Python Version: **3+**
+🎱 Raspberry Pi 3 Model B Rev 1.2  
+🎱 Camera Module v1  
+🎱 NodeJS Version: **16.x**  
+🎱 Python Version: **3.x**
 
-```bash
-    nvm install 16.14.0
-    nvm use 16.14.0
-```
+📚 [Raspberry Pi Hardware Documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)  
+📚 [Raspberry Pi Camera Documentation](https://www.raspberrypi.com/documentation/accessories/camera.html)
+
+---
 
 ## Raspberry Pi Setup
 
@@ -26,8 +28,9 @@
 # Disconnect
 # logout
 
-# Connect to the Raspberry Pi
-ssh pi@raspberrypi.local # Default Password: raspberry
+# Connect to the Raspberry Pi ... 🚀
+# 🔒 Default Password: raspberry
+ssh pi@raspberrypi.local
 
 # Change Password
 # ...
@@ -37,14 +40,14 @@ ssh pi@raspberrypi.local # Default Password: raspberry
 
 # Configure the Raspberry Pi
 sudo raspi-config
-# Enable Camera:      Interface Options > Camera > Yes > Ok
-# Expand Filesystem:  Advanced Options > Expand Filesystem > Ok
-# Save Config:        Finish > Yes (Reboot)
+# ⚙️ Enable Camera:      Interface Options > Camera > Yes > Ok
+# ⚙️ Expand Filesystem:  Advanced Options > Expand Filesystem > Ok
+# ⚙️ Save Config:        Finish > Yes (Reboot)
 
 # --------------------------------
 # 1. Shutdown
 # 2. Attach the Camera Module
-# 3. Reconnect ...
+# 3. Reconnect ... 🚀
 # ---------------------------------
 
 # Update the OS
@@ -54,15 +57,16 @@ sudo apt upgrade -y
 # Install neofetch (optional)
 sudo apt install neofetch -y
 
-# Install nvm (Node Version Manager)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+# Install nvm
+curl -o - https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 
 # --------------------------------
-# Reconnect ...
+# Reconnect ... 🚀
 # --------------------------------
 
-# Install nodejs 16 (LTS) and npm
+# Install Node.js 16 (LTS) and npm
 nvm install 16.14.0
+nvm use 16.14.0
 # node -v
 # npm -v
 
@@ -70,14 +74,14 @@ nvm install 16.14.0
 sudo apt install git -y
 # git --version
 
-# Coordinator
-mkdir /capstone
-cd /capstone
+# 💾 Coordinator
+mkdir capstone
+cd capstone
 git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
 npm ci --production=false
 npm run start
 
-# CV
+# 💾 CV
 # python3 --version
 # ...
 ```
