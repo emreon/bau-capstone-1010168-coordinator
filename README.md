@@ -70,29 +70,14 @@ nvm install 16.14.0
 sudo apt install git -y
 # git --version
 
-# Setup Coordinator directory
-sudo mkdir /var/coordinator
-sudo chown -R pi:pi /var/coordinator
-
-# Install & Run Coordinator
-git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
-cd /var/coordinator/bau-capstone-1010168-coordinator
-npm ci --include=dev
+# Coordinator
+mkdir /capstone
+cd /capstone
+git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
+npm ci --production=false
 npm run start
 
-# Install CV Program
+# CV
 # python3 --version
 # ...
-```
-
-## Raspberry Pi Deploy
-
-```bash
-ssh pi@raspberrypi.local
-
-rm -rf /var/coordinator/bau-capstone-1010168-coordinator
-git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git /var/coordinator/bau-capstone-1010168-coordinator
-cd /var/coordinator/bau-capstone-1010168-coordinator
-npm ci --include=dev
-npm run start
 ```

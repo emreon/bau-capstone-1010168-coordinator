@@ -17,8 +17,8 @@
     },
     "homepage": "https://github.com/emreon/bau-capstone-1010168-coordinator#readme",
     "dependencies": {
-        "pi-camera": "^1.7.0",
         "pi-camera-connect": "^0.3.4",
+        "serialport": "^10.4.0",
         "sharp": "^0.30.4",
         "ws": "^8.6.0"
     }
