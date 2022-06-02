@@ -1,20 +1,20 @@
 import { Codec, StreamCamera } from 'pi-camera-connect';
 import WebSocket from 'ws';
 
-// -------- CAMERA --------
+// ---------------- CAMERA ----------------
 
 const streamCamera = new StreamCamera({
     codec: Codec.MJPEG,
     flip: 'vertical',
-    // width: 640,
-    // height: 480,
+    width: 1296,
+    height: 730,
 });
 
 console.log('[CAM] Starting Camera...');
 await streamCamera.startCapture();
 console.log('[CAM] Camera is ON');
 
-// -------- WEBSOCKET CLIENT --------
+// ---------------- WEBSOCKET CLIENT ----------------
 
 const WS_ADDR = 'ws://192.168.1.222:8888';
 const td = new TextDecoder();
@@ -104,7 +104,7 @@ function sendFrameBuffer(ws) {
         .catch((err) => console.error(err));
 }
 
-// -------- SHARP --------
+// ---------------- CV ----------------
 
 //  {
 //     format: 'jpeg',
@@ -117,3 +117,19 @@ function sendFrameBuffer(ws) {
 
 // const data = await sharp(imageBuffer);
 // console.log(data);
+
+// ---------------- ROBOT ----------------
+
+// M106 S125   --> air pump ON
+// M107 S125   --> air pump OFF
+// G4 P60      --> wait 1 sec (P30 = 0.5s) (P120 = 2s) (3600 = 1min)
+// G0 X0 Y0 Z0 --> move
+
+// Z+ up
+// Z- down
+// X+ right
+// X- left
+// Y+ forward
+// Y- backwards
+
+// import { SerialPort } from 'serialport'
