@@ -16,7 +16,8 @@ console.log('[CAM] Camera is ON');
 
 // ---------------- WEBSOCKET CLIENT ----------------
 
-const WS_ADDR = 'ws://192.168.1.222:8888';
+// const WS_ADDR = 'ws://192.168.1.222:8888';
+const WS_ADDR = 'wss://bau-capstone-1010168.herokuapp.com';
 const td = new TextDecoder();
 let sendFrameIntervalId = -1;
 
