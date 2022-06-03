@@ -72,7 +72,8 @@ nvm use 16.14.0
 
 # Install PM2
 # https://pm2.keymetrics.io/docs/usage/application-declaration/
-# ...
+npm i -g pm2
+pm2 startup
 
 # Install git
 sudo apt install git -y
@@ -85,7 +86,9 @@ git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordin
 
 cd coordinator
 npm ci --production=false
-npm run start
+# npm run start
+pm2 start ecosystem.config.js
+pm2 save
 
 # 💾 CV
 # python3 --version
