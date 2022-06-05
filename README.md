@@ -57,27 +57,17 @@ sudo apt upgrade -y
 # Install neofetch (optional)
 sudo apt install neofetch -y
 
-# Install nvm
-curl -o - https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-
-# --------------------------------
-# Reconnect ... 🚀
-# --------------------------------
-
-# Install Node.js 16 (LTS) and npm
-nvm install 16.14.0
-nvm use 16.14.0
-# node -v
-# npm -v
+# Install Node.js 16 and npm
+curl -sSL https://deb.nodesource.com/setup_16.x | sudo bash -
+sudo apt-get install -y nodejs
 
 # Install PM2
 # https://pm2.keymetrics.io/docs/usage/application-declaration/
-npm i -g pm2
-pm2 startup
+sudo npm i -g pm2
+sudo pm2 startup
 
 # Install git
 sudo apt install git -y
-# git --version
 
 # 💾 Coordinator
 mkdir capstone
@@ -87,10 +77,22 @@ git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordin
 cd coordinator
 npm ci --production=false
 # npm run start
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.cjs
 pm2 save
 
 # 💾 CV
-# python3 --version
+sudo apt install -y python-opencv
+sudo apt install -y python3-pip
+
+# pip3 install opencv-python --> IndexError: list index out of range
+# https://stackoverflow.com/questions/47011935/indexerror-list-index-out-of-range-using-pip
+pip3 install --no-binary --upgrade opencv-python
+pip3 install --no-binary --upgrade numpy
+pip3 install --no-binary --upgrade matplotlib
+
+cd ~
+https://github.com/emreon/bau-capstone-1010168-cv.git
+
 # ...
+
 ```

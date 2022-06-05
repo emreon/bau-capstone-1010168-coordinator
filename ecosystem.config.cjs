@@ -13,9 +13,6 @@ module.exports = {
             watch: false,
             max_restarts: 3,
             log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
-            // error_file: 'logs/errors.log',
-            // out_file: 'logs/out.log',
-            // pid_file: 'logs/app.pid',
             env_development: {
                 NODE_ENV: 'development',
             },
