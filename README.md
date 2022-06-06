@@ -81,14 +81,10 @@ pm2 start ecosystem.config.cjs
 pm2 save
 
 # 💾 CV
-sudo apt install -y python-opencv
 sudo apt install -y python3-pip
-
-# pip3 install opencv-python --> IndexError: list index out of range
-# https://stackoverflow.com/questions/47011935/indexerror-list-index-out-of-range-using-pip
-pip3 install --no-binary --upgrade opencv-python
-pip3 install --no-binary --upgrade numpy
-pip3 install --no-binary --upgrade matplotlib
+pip3 install opencv-python-headless
+pip3 install matplotlib
+# pip3 install numpy
 
 cd ~
 https://github.com/emreon/bau-capstone-1010168-cv.git
