@@ -82,13 +82,14 @@ pm2 save
 
 # 💾 CV
 sudo apt install -y python3-pip
-pip3 install opencv-python-headless
+pip3 install --upgrade pip
+pip3 install opencv-contrib-python-headless
 pip3 install matplotlib
 # pip3 install numpy
 
-cd ~
-https://github.com/emreon/bau-capstone-1010168-cv.git
+cd ~/capstone
+git clone https://github.com/emreon/bau-capstone-1010168-cv.git cv
 
-# ...
-
+# cd cv
+# python3 test.py
 ```
