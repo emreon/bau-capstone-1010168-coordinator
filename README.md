@@ -70,26 +70,28 @@ sudo pm2 startup
 sudo apt install git -y
 
 # Capstone
-mkdir ~/capstone
+mkdir capstone
+cd capstone
 
 # 💾 Coordinator
-git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git ~/capstone/coordinator
+git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
+cd coordinator
 
-cd ~/capstone/coordinator
 npm ci --production=false
 # npm run start
 pm2 start ecosystem.config.cjs
 pm2 save
 
 # 💾 CV
+cd ..
+git clone https://github.com/emreon/bau-capstone-1010168-cv.git cv
+cd cv
+
 sudo apt install -y python3-pip
-pip3 install --upgrade pip setuptools wheel
-pip3 install opencv-contrib-python-headless
-pip3 install matplotlib
+pip3 install --no-cache-dir --upgrade pip setuptools wheel
+pip3 install --no-cache-dir opencv-contrib-python-headless
+pip3 install --no-cache-dir matplotlib
 # pip3 install numpy
 
-git clone https://github.com/emreon/bau-capstone-1010168-cv.git ~/capstone/cv
-
-# cd ~/capstone/cv
 # python3 test.py
 ```
