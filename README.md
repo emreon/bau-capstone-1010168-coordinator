@@ -92,6 +92,7 @@ cd capstone
 git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
 cd coordinator
 
+sudo npm i -g node-gyp
 npm ci --production=false
 # npm run start
 pm2 start ecosystem.config.cjs
