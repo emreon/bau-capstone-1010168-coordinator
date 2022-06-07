@@ -31,6 +31,9 @@
 # Check Storage
 # df -h
 
+# Check Memory
+# free -h
+
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
