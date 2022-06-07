@@ -28,21 +28,16 @@
 # Disconnect
 # logout
 
-<<<<<<< HEAD
-# Check Disk Space
-# df -h
-
-=======
 # Check Storage
 # df -h
 
 # Check Memory
 # free -h
+# https://nebl.io/neblio-university/enabling-increasing-raspberry-pi-swap/
 
 # Perf. Monitoring
 # htop
 
->>>>>>> 98874314155769e64518a676ef56630a92b96366
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
