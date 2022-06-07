@@ -28,9 +28,21 @@
 # Disconnect
 # logout
 
+<<<<<<< HEAD
 # Check Disk Space
 # df -h
 
+=======
+# Check Storage
+# df -h
+
+# Check Memory
+# free -h
+
+# Perf. Monitoring
+# htop
+
+>>>>>>> 98874314155769e64518a676ef56630a92b96366
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
@@ -72,32 +84,37 @@ sudo pm2 startup
 # Install git
 sudo apt install git -y
 
-# 💾 Coordinator
+# Capstone
 mkdir capstone
 cd capstone
-git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
 
+# 💾 Coordinator
+git clone https://github.com/emreon/bau-capstone-1010168-coordinator.git coordinator
 cd coordinator
+
 npm ci --production=false
 # npm run start
 pm2 start ecosystem.config.cjs
 pm2 save
 
 # 💾 CV
-sudo apt install -y python-opencv
-sudo apt install -y python3-pip
+cd ..
+git clone https://github.com/emreon/bau-capstone-1010168-cv.git cv
+cd cv
 
-# pip3 install opencv-python --> IndexError: list index out of range
-# https://stackoverflow.com/questions/47011935/indexerror-list-index-out-of-range-using-pip
-pip3 install --no-binary --upgrade opencv-python
-pip3 install --no-binary --upgrade numpy
-pip3 install --no-binary --upgrade matplotlib
-
+<<<<<<< HEAD
 pip install opencv-python-headless
 
 cd ~
 https://github.com/emreon/bau-capstone-1010168-cv.git
 
 # ...
+=======
+sudo apt install -y build-essential cmake pkg-config libssl-dev ninja-build python3-pip
+pip3 install --no-cache-dir --upgrade pip setuptools wheel
+pip3 install --no-cache-dir matplotlib numpy
+pip3 install --no-cache-dir opencv-contrib-python-headless
+>>>>>>> 98874314155769e64518a676ef56630a92b96366
 
+# python3 test.py
 ```
