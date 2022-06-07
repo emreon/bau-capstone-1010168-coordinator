@@ -28,6 +28,9 @@
 # Disconnect
 # logout
 
+# Check Storage
+# df -h
+
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
@@ -87,11 +90,10 @@ cd ..
 git clone https://github.com/emreon/bau-capstone-1010168-cv.git cv
 cd cv
 
-sudo apt install -y python3-pip
+sudo apt install -y build-essential cmake pkg-config libssl-dev ninja-build python3-pip
 pip3 install --no-cache-dir --upgrade pip setuptools wheel
+pip3 install --no-cache-dir matplotlib numpy
 pip3 install --no-cache-dir opencv-contrib-python-headless
-pip3 install --no-cache-dir matplotlib
-# pip3 install numpy
 
 # python3 test.py
 ```
