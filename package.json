@@ -17,6 +17,8 @@
     },
     "homepage": "https://github.com/emreon/bau-capstone-1010168-coordinator#readme",
     "dependencies": {
+        "inverse-kinematics": "^0.1.3",
+        "kinematics": "^1.0.2",
         "pi-camera-connect": "^0.3.4",
         "serialport": "^10.4.0",
         "sharp": "^0.30.4",

@@ -28,6 +28,9 @@
 # Disconnect
 # logout
 
+# Check Disk Space
+# df -h
+
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
@@ -89,6 +92,8 @@ sudo apt install -y python3-pip
 pip3 install --no-binary --upgrade opencv-python
 pip3 install --no-binary --upgrade numpy
 pip3 install --no-binary --upgrade matplotlib
+
+pip install opencv-python-headless
 
 cd ~
 https://github.com/emreon/bau-capstone-1010168-cv.git

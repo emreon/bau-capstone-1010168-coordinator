@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body style="margin: 0px; padding: 0px">
+        <canvas id="c" width="600" height="600"></canvas>
+        <script>
+            const degToRad = 0.017453292519943295;
+            const radToDeg = 57.29577951308232;
+            const canvas = document.getElementById('c');
+            const ctx = canvas.getContext('2d');
+
+            const armWidth = 10;
+            const arm = { len: 180, angleDeg: 0, next: { len: 180, angleDeg: 0 } };
+            let target = { x: 0, y: 0 };
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+
+                let { x, y } = target;
+                // x = Math.max(x, 0);
+                // y = Math.max(y, 0);
+
+                const L1 = arm.len;
+                const L2 = arm.next.len;
+
+                // const angle2 = Math.acos((x * x + y * y + L1 + L2) / (2 * L1 * L2));
+                // const angle1 = Math.atan(x / y) - Math.atan((L2 * Math.sin(angle2)) / (L1 + L2 * Math.cos(angle2)));
+
+                // console.log('target:', target, 'a1:', parseInt(angle1 * radToDeg), 'a2:', parseInt(angle2 * radToDeg));
+                // if (!isNaN(angle1) && !isNaN(angle2)) {
+                //     arm.angleDeg = angle1 * radToDeg;
+                //     arm.next.angleDeg = angle2 * radToDeg;
+                // }
+
+                let a = Math.atan(target.y / target.x);
+                let q2 = -Math.acos((x * x + y * y - L1 * L1 - L2 * L2) / (2 * L1 * L2));
+                let q1 = Math.atan(y / x) - Math.atan((L2 * Math.sin(q2)) / (L1 + L2 * Math.cos(q2)));
+
+                if (a < 0) {
+                    q2 = q2 - Math.PI / 2;
+                }
+
+                // console.log('target:', target, 'q1:', parseInt(q1 * radToDeg), 'q2:', parseInt(q2 * radToDeg));
+                if (!isNaN(q1) && !isNaN(q2)) {
+                    arm.angleDeg = q1 * radToDeg;
+                    arm.next.angleDeg = q2 * radToDeg;
+                }
+
+                ctx.font = '30px Arial';
+                ctx.fillText(`Q1: ${parseInt(q1 * radToDeg)}`, 20, 40);
+                ctx.fillText(`Q2: ${parseInt(q2 * radToDeg)}`, 20, 80);
+                ctx.fillText(`A: ${parseInt(a * radToDeg)}`, 20, 120);
+
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.strokeStyle = 'blue';
+                ctx.strokeRect(0, 0, 200, -200);
+
+                ctx.rotate(-arm.angleDeg * degToRad);
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, -armWidth / 2, arm.len, armWidth);
+
+                ctx.translate(arm.len, 0);
+                ctx.rotate(-arm.next.angleDeg * degToRad);
+                ctx.fillStyle = 'red';
+                ctx.fillRect(0, -armWidth / 2, arm.next.len, armWidth);
+
+                ctx.restore();
+                window.requestAnimationFrame(render);
+                // setTimeout(() => window.requestAnimationFrame(render), 1000);
+            }
+            window.requestAnimationFrame(render);
+
+            window.addEventListener('mousemove', (e) => {
+                target = { x: e.clientX - canvas.width / 2, y: -(e.clientY - canvas.height / 2) };
+            });
+        </script>
+    </body>
+</html>
