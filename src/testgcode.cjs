@@ -4,7 +4,7 @@ const { SerialPort } = require('serialport');
 // https://serialport.io/docs/api-serialport
 var port = new SerialPort({
     path: '/dev/ttyUSB0',
-    baudRate: 250_000,
+    baudRate: 115_200,
     // baudRate: 115200,
     // dataBits: 8,
     // parity: 'none',
@@ -40,11 +40,19 @@ port.open(function (err) {
     // Y+ forward
     // Y- backwards
     setTimeout(() => {
-        console.log('sending commands');
-        port.write(Buffer.from('M106 S125\n'));
-        setTimeout(() => {
-            port.write(Buffer.from('M107 S125\n'));
-        }, 3_000);
+        // console.log('sending commands');
+        // port.write(Buffer.from('M106 S125\n'));
+        // setTimeout(() => {
+        //     port.write(Buffer.from('M107 S125\n'));
+        // }, 3_000);
+
+        // port.write(Buffer.from('G1 X0\n'));
+        // port.write(Buffer.from('G1 X15 Y15\n'));
+        // port.write(Buffer.from('G1 X30 Y30\n'));
+        // port.write(Buffer.from('G1 X45 Y45\n'));
+        // port.write(Buffer.from('G1 X90 Y90\n'));
+        port.write(Buffer.from('G1 X1 Y1\n'));
+        port.write(Buffer.from('G1 X175 Y5\n'));
     }, 1_000);
 });
 
