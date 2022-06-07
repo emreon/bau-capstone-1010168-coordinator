@@ -34,6 +34,9 @@
 # Check Memory
 # free -h
 
+# Perf. Monitoring
+# htop
+
 # Connect to the Raspberry Pi ... 🚀
 # 🔒 Default Password: raspberry
 ssh pi@raspberrypi.local
