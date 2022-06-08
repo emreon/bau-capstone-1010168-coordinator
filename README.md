@@ -98,19 +98,10 @@ cd ..
 git clone https://github.com/emreon/bau-capstone-1010168-cv.git cv
 cd cv
 
-<<<<<<< HEAD
-pip install opencv-python-headless
-
-cd ~
-https://github.com/emreon/bau-capstone-1010168-cv.git
-
-# ...
-=======
 sudo apt install -y build-essential cmake pkg-config libssl-dev ninja-build python3-pip
 pip3 install --no-cache-dir --upgrade pip setuptools wheel
 pip3 install --no-cache-dir matplotlib numpy
 pip3 install --no-cache-dir opencv-contrib-python-headless
->>>>>>> 98874314155769e64518a676ef56630a92b96366
 
 # python3 test.py
 ```

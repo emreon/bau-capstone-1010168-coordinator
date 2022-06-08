@@ -1,5 +1,7 @@
 import { Codec, StreamCamera } from 'pi-camera-connect';
+import { SerialPort } from 'serialport';
 import WebSocket from 'ws';
+import { solveIK } from './iksolver.js';
 
 // ---------------- CAMERA ----------------
 
@@ -16,7 +18,7 @@ console.log('[CAM] Camera is ON');
 
 // ---------------- WEBSOCKET CLIENT ----------------
 
-// const WS_ADDR = 'ws://192.168.1.222:8888';
+// const WS_ADDR = 'ws://192.168.43.33:8888';
 const WS_ADDR = 'wss://bau-capstone-1010168.herokuapp.com';
 const td = new TextDecoder();
 let sendFrameIntervalId = -1;
@@ -40,30 +42,19 @@ ws.on('message', (data, isBinary) => {
     if (!isBinary) {
         const msgStr = td.decode(data);
         const msg = JSON.parse(msgStr);
-        console.log('[WS] Message: ', msg);
 
-        // Start sending frames
-        if (msg.type === 'start') {
-            if (ws.isStarted) return;
-            console.log('[WS] Start', '| Target FPS:', msg.targetFPS);
-
-            ws.isStarted = true;
-            createFrameInterval(msg.targetFPS);
+        // SERVER: ACK
+        if (msg === '🎞️') {
+            sendFrameBuffer(ws);
         }
-        // Stop sending frames
-        else if (msg === 'stop') {
-            if (!ws.isStarted) return;
-            console.log('[WS] Stop');
 
-            ws.isStarted = false;
-            clearInterval(sendFrameIntervalId);
-        }
-        // Change target FPS
-        else if (msg.type === 'fps') {
-            if (!ws.isStarted) return;
-            console.log('[WS] Target FPS:', msg.targetFPS);
+        // OTHER ...
+        else {
+            console.log('[WS] Message: ', msg);
 
-            createFrameInterval(msg.targetFPS);
+            if (msg.name === 'move') {
+                sendMoveCommand({ x: msg.x, y: msg.y });
+            }
         }
     }
 });
@@ -85,8 +76,12 @@ ws.on('close', (code, reason) => {
     clearInterval(sendFrameIntervalId);
     streamCamera.stopCapture().then(() => {
         console.log('[CAM] Camera is OFF');
-        console.log('👋 BYE');
-        process.exit();
+
+        console.log('[APP] Exiting in 10 seconds...');
+        setTimeout(() => {
+            console.log('👋 BYE');
+            process.exit();
+        }, 10_000);
     });
 });
 
@@ -105,8 +100,7 @@ function sendFrameBuffer(ws) {
         .catch((err) => console.error(err));
 }
 
-// ---------------- CV ----------------
-
+// #region CV
 //  {
 //     format: 'jpeg',
 //     width: 1920,
@@ -115,22 +109,77 @@ function sendFrameBuffer(ws) {
 //     premultiplied: false,
 //     size: 50472
 //  }
-
 // const data = await sharp(imageBuffer);
 // console.log(data);
+// #endregion
 
-// ---------------- ROBOT ----------------
+// #region Robot
 
 // M106 S125   --> air pump ON
 // M107 S125   --> air pump OFF
 // G4 P60      --> wait 1 sec (P30 = 0.5s) (P120 = 2s) (3600 = 1min)
 // G0 X0 Y0 Z0 --> move
-
 // Z+ up
 // Z- down
 // X+ right
 // X- left
 // Y+ forward
 // Y- backwards
+const td2 = new TextDecoder();
 
-// import { SerialPort } from 'serialport'
+// https://www.npmjs.com/package/serialport
+// https://serialport.io/docs/api-serialport
+const port = new SerialPort({
+    path: '/dev/ttyUSB0',
+    baudRate: 115_200,
+    autoOpen: false,
+});
+
+port.open(onPortOpen);
+port.on('data', onPortData);
+
+function onPortOpen(err) {
+    // Because there's no callback to write, write errors will be emitted on the port:
+    if (err) {
+        console.log('Error opening port: ', err.message);
+        setTimeout(() => port.open(onPortOpen), 10_000);
+        return;
+    }
+
+    // G4 P60 (wait 1 seconds)
+    // port.write('G0 X00 Y400');
+    // port.write(Buffer.from('M105'));
+
+    // Z+ up
+    // Z- down
+    // X+ right
+    // X- left
+    // Y+ forward
+    // Y- backwards
+    // setTimeout(() => {
+    //     // console.log('sending commands');
+    //     // port.write(Buffer.from('M106 S125\n'));
+    //     // setTimeout(() => {
+    //     //     port.write(Buffer.from('M107 S125\n'));
+    //     // }, 3_000);
+
+    //     // port.write(Buffer.from('G1 X0\n'));
+    //     // port.write(Buffer.from('G1 X15 Y15\n'));
+    //     // port.write(Buffer.from('G1 X30 Y30\n'));
+    //     // port.write(Buffer.from('G1 X45 Y45\n'));
+    //     // port.write(Buffer.from('G1 X90 Y90\n'));
+    //     port.write(Buffer.from('G1 X1 Y1\n'));
+    //     port.write(Buffer.from('G1 X175 Y5\n'));
+    // }, 1_000);
+}
+
+function onPortData(data) {
+    process.stdout.write(td2.decode(data, { stream: true }));
+}
+
+function sendMoveCommand(target) {
+    const angles = solveIK(target);
+    console.log('angles', angles);
+}
+
+// #endregion

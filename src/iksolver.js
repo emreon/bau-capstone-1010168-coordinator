@@ -1,21 +1,35 @@
-import kinematics from 'kinematics';
+const degToRad = 0.017453292519943295;
+const radToDeg = 57.29577951308232;
 
-const Kinematics = kinematics.default;
+const armWidth = 10;
+const options = { yOffset: 30 };
+const arm = { len: 180, angleDeg: 0, next: { len: 180, angleDeg: 0 } };
 
-const geometry = [
-    [1, 1, 0], // V0: 1x 1y
-    [0, 10, 0], // V1: 10y
-    [5, 0, 0], // V2: 5x
-    [3, 0, 0], // V3: 3x
-    [0, -3, 0], // V4: -3y
-];
+let target = { x: 0, y: 0 };
+let mouse = { x: 0, y: 0 };
 
-const RobotKin = new Kinematics(geometry);
+export function solveIK(_target) {
+    target = _target;
 
-let angles = [1.57, 1.2, 0, 0.3, 2.2, 1.1];
+    let { yOffset } = options;
+    let { x, y } = target;
+    x = Math.max(x, 0);
+    y = Math.max(y, yOffset);
 
-const pose = RobotKin.forward(...angles)[5];
+    const a = Math.atan(y / x);
+    const t1 = -Math.acos((x * x + y * y - L1 * L1 - L2 * L2) / (2 * L1 * L2));
+    const t2 = Math.atan(y / x) - Math.atan((L2 * Math.sin(q2)) / (L1 + L2 * Math.cos(q2)));
+    const t3 = t1 + t2;
 
-angles = RobotKin.inverse(...pose);
+    if (!isNaN(t1) && !isNaN(t2)) {
+        arm.angleDeg = t1 * radToDeg;
+        arm.next.angleDeg = t2 * radToDeg;
+    } else {
+        arm.angleDeg = a * radToDeg;
+        arm.next.angleDeg = 0;
+    }
 
-console.log(angles);
+    const t1Deg = t1 * radToDeg;
+    const t3Deg = t3 * radToDeg;
+    return [t1Deg, t3Deg];
+}
