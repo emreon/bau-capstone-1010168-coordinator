@@ -37,9 +37,11 @@
             const canvas = document.getElementById('c');
             // const ctx = canvas.getContext('2d');
 
+            const Y = 100;
+            const workspace = { x: 420, y: 420 };
             const armWidth = 10;
-            const options = { yOffset: 30 };
-            const arm = { len: 180, angleDeg: 0, next: { len: 180, angleDeg: 0 } };
+            const options = { yOffset: 0 };
+            const arm = { len: 345, angleDeg: 0, next: { len: 350, angleDeg: 0 } };
             let target = { x: 0, y: 0 };
             let mouse = { x: 0, y: 0 };
 
@@ -66,6 +68,7 @@
                 // }
 
                 let a = Math.atan(y / x);
+                // let q2 = Math.acos((x * x + y * y - L1 * L1 - L2 * L2) / (2 * L1 * L2));
                 let q2 = -Math.acos((x * x + y * y - L1 * L1 - L2 * L2) / (2 * L1 * L2));
                 let q1 = Math.atan(y / x) - Math.atan((L2 * Math.sin(q2)) / (L1 + L2 * Math.cos(q2)));
 
@@ -96,9 +99,9 @@
                 ctx.fillText(`L₁: ${parseInt(arm.len)}px`, 20, (textY += textYInc));
                 ctx.fillText(`L₂: ${parseInt(arm.next.len)}px`, 20, (textY += textYInc));
 
-                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.translate(canvas.width / 2, canvas.height - Y);
                 ctx.strokeStyle = 'blue';
-                ctx.strokeRect(0, -yOffset, 200, -200);
+                ctx.strokeRect(0, -yOffset, workspace.x, -workspace.y);
 
                 ctx.strokeStyle = 'green';
                 ctx.beginPath();
@@ -132,7 +135,7 @@
 
             window.addEventListener('mousemove', (e) => {
                 mouse = { x: e.clientX, y: e.clientY };
-                target = { x: e.clientX - canvas.width / 2, y: -(e.clientY - canvas.height / 2) };
+                target = { x: e.clientX - canvas.width / 2, y: -(e.clientY - canvas.height + Y) };
             });
 
             window.addEventListener('resize', () => {
@@ -144,9 +147,9 @@
 
             // dat.gui
             const gui = new dat.GUI({ name: 'My GUI' });
-            gui.add(arm, 'len', 50, 200).name('L1');
-            gui.add(arm.next, 'len', 50, 200).name('L2');
-            gui.add(options, 'yOffset', 0, 100).name('Y Offset');
+            gui.add(arm, 'len', 50, 400).name('L1');
+            gui.add(arm.next, 'len', 50, 400).name('L2');
+            gui.add(options, 'yOffset', 0, 200).name('Y Offset');
             gui.add(
                 {
                     // https://stackoverflow.com/questions/18366229/is-it-possible-to-create-a-button-using-dat-gui

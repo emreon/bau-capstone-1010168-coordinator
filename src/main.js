@@ -1,6 +1,7 @@
 import { Codec, StreamCamera } from 'pi-camera-connect';
 import { SerialPort } from 'serialport';
 import WebSocket from 'ws';
+import * as colors from './colors.js';
 import { solveIK } from './iksolver.js';
 
 // ---------------- CAMERA ----------------
@@ -146,6 +147,8 @@ function onPortOpen(err) {
         return;
     }
 
+    setTimeout(() => sendHomeCommand(), 1000);
+
     // G4 P60 (wait 1 seconds)
     // port.write('G0 X00 Y400');
     // port.write(Buffer.from('M105'));
@@ -177,9 +180,19 @@ function onPortData(data) {
     process.stdout.write(td2.decode(data, { stream: true }));
 }
 
+function sendHomeCommand() {
+    const cmd = `G28\nG1 X0 Y0 Z5\n`;
+
+    console.log(`${colors.FgCyan}${cmd}${colors.Reset}`);
+    port.write(Buffer.from(cmd));
+}
+
 function sendMoveCommand(target) {
-    const angles = solveIK(target);
-    console.log('angles', angles);
+    const [t1, t3] = solveIK(target);
+    const cmd = `G1 X${parseInt(t1)} Y${parseInt(t3)}\n`;
+
+    console.log(`${colors.FgCyan}${cmd}${colors.Reset}`);
+    port.write(Buffer.from(cmd));
 }
 
 // #endregion
