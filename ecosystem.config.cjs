@@ -6,7 +6,7 @@ module.exports = {
         // Coordinator
         {
             name: 'coordinator',
-            script: 'src/main.js',
+            script: 'src/app.js',
             exec_mode: 'fork',
             instances: 1,
             autorestart: true,

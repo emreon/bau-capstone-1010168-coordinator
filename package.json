@@ -4,7 +4,7 @@
     "description": "Bahcesehir University Capstone Project 1010168 Coordinator (Raspberry Pi)",
     "type": "module",
     "scripts": {
-        "start": "node ./src/main.js"
+        "start": "node src/app.js"
     },
     "repository": {
         "type": "git",
