@@ -27,7 +27,6 @@ let sendFrameIntervalId = -1;
 console.log('Connecting to the server...');
 const ws = new WebSocket(WS_ADDR, { handshakeTimeout: 3000 });
 
-ws.isStarted = false;
 ws.sendMessage = (msg, cb) => {
     const msgStr = JSON.stringify(msg);
     ws.send(msgStr);
@@ -116,19 +115,6 @@ function sendFrameBuffer(ws) {
         .catch((err) => console.error(err));
 }
 
-// #region CV
-//  {
-//     format: 'jpeg',
-//     width: 1920,
-//     height: 1080,
-//     channels: 3,
-//     premultiplied: false,
-//     size: 50472
-//  }
-// const data = await sharp(imageBuffer);
-// console.log(data);
-// #endregion
-
 // #region Robot
 
 // M106 S125   --> air pump ON
@@ -190,7 +176,7 @@ function sendBulkCommands(cmdArr) {
 }
 
 function sendHomeCommand() {
-    const cmdArr = ['G28', 'G1 Z70', 'G1 X0 Y0', 'G1 X90 Y90'];
+    const cmdArr = ['G28', 'G1 Z100', 'G1 X0 Y0', 'G1 X90 Y90'];
     sendBulkCommands(cmdArr);
 }
 
@@ -209,7 +195,7 @@ function sendMove2Command(target) {
 }
 
 function sendPickCommand() {
-    const cmdArr = ['G1 Z3', 'M106 S125', 'G4 P60', 'G1 Z70'];
+    const cmdArr = ['G1 Z5', 'M106 S125', 'G4 P60', 'G1 Z100'];
     sendBulkCommands(cmdArr);
 }
 
